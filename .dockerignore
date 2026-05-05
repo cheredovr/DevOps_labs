@@ -1,0 +1,7 @@
+venv/
+.venv/
+miniconda3/
+__pycache__/
+.git/
+.pytest_cache/
+data/
