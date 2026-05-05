@@ -28,13 +28,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # 4. Трюк для CI: так как данные и модель в DVC и не лежат в Git,
-    # мы скачиваем датасет и обучаем модель прямо на сервере GitHub перед сборкой Docker
+    # 4. Трюк для CI: генерируем мини-датасет для сборки и тестов
     - name: Prepare Data and Train Model
       run: |
         mkdir -p data
-        # Скачиваем публичный аналог спам-датасета для CI
-        curl -o data/spam.csv https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/sms.tsv
+        python -c "import pandas as pd; pd.DataFrame({'v1':['ham','spam','ham','spam','ham','spam'], 'v2':['Hey, are we still on for lunch today?', 'WINNER! You have been selected for a cash prize! Call now!', 'Just checking in.', 'URGENT cash prize call now', 'Call me when you are free', 'win free money now']}).to_csv('data/spam.csv', index=False)"
         python src/train.py
 
     # 5. CD ЭТАП: Прогоняем автотесты
