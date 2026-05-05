@@ -3,9 +3,9 @@ name: ML Pipeline (CI/CD)
 # Пайплайн запускается при пуше в ветку main
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "lab2" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "lab2" ]
 
 jobs:
   build-test-and-push:
